@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Sending Objects</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="phoneNo">Phone No.</string>
+    <string name="rollNo">Roll No.</string>
+    <string name="nameViewer">nameViewer</string>
+    <string name="rollNoViewer">rollNoViewer</string>
+    <string name="phoneNoViewer">phoneNoViewer</string>
+    <string name="gender">Gender</string>
+    <string name="genderViewer">genderViewer</string>
+</resources>
