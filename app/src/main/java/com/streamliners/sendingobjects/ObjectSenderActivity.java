@@ -5,11 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.RadioButton;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.streamliners.sendingobjects.ModelClasses.Student;
@@ -34,7 +35,7 @@ public class ObjectSenderActivity extends AppCompatActivity {
         setupLayout();
 
         setupHideErrorForEditText();
-
+        setupActionListener();
 
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
 
@@ -234,10 +235,26 @@ public class ObjectSenderActivity extends AppCompatActivity {
 
         //save and commit data
         prefs.edit()
-                .putString(Constants.NAME, b.nameET.getText().toString().trim())
+                .putString(Constants.NAME, Objects.requireNonNull(b.nameET.getText()).toString().trim())
                 .putInt(Constants.GENDER_TYPE, b.genderRGrp.getCheckedRadioButtonId())
-                .putString(Constants.ROLL_NO, b.rollNoET.getText().toString().trim())
-                .putString(Constants.PHONE_NO, b.phoneNoET.getText().toString().trim())
+                .putString(Constants.ROLL_NO, Objects.requireNonNull(b.rollNoET.getText()).toString().trim())
+                .putString(Constants.PHONE_NO, Objects.requireNonNull(b.phoneNoET.getText()).toString().trim())
                 .apply();
+    }
+
+
+    /**
+     * To setup the listener for the phoneNo text field.
+     */
+    private void setupActionListener() {
+        Objects.requireNonNull(b.phoneNoTIL.getEditText()).setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    saveData(v);
+                }
+                return true;
+            }
+        });
     }
 }
